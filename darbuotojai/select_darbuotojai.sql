@@ -1,2 +1,2 @@
 -- SQLite
-SELECT vardas, pavarde FROM darbuotojai;
+SELECT * FROM darbuotojai;

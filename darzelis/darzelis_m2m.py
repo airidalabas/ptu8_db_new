@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, DateTime, create_engine
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, Date, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -42,7 +42,7 @@ class Valgiarastis(Base):
     id = Column(Integer, primary_key = True)
     savaites_diena = Column("Savaitės diena", String)
     tipas = Column("Dienos valgymai", String)
-    data = Column("Data", DateTime, default = datetime.datetime.utcnow)
+    data = Column("Data", Date, default = datetime.date.utcnow)
     valgymai = relationship("Valgymas", back_populates = "valgiarastis")
     produktai = relationship("Produktas", secondary = produktu_suvartojimas, back_populates = "valgiarasciai")
 

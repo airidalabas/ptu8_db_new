@@ -1,6 +1,6 @@
 from  sqlalchemy.orm import sessionmaker
 from darzelis_m2m import Produktas, Vaikas, Valgiarastis, Valgymas, produktu_suvartojimas, engine
-from datetime import datetime
+from datetime import date
 
 session = sessionmaker(bind=engine)()
 
@@ -87,6 +87,7 @@ def collect_changes(vaikas):
         "pavarde": input("Pavardė: "),
         "amzius": input("Amžius: "),
     }
+    return changes
 
 def add_valgiarastis():
     i_savaites_diena = input("Įveskite savaitės dieną: ")
@@ -116,7 +117,7 @@ def update_valgiarastis(valgiarastis, **changes):
     session.commit()
     print(f"Savaitės diena: {valgiarastis.savaites_diena}, Valgiarasčio tipas {valgiarastis.tipas}, Data {valgiarastis.data}")
 
-def collect_changes(valgiarastis):
+def collect_changes_valgiarastis(valgiarastis):
     print(f"Savaitės diena: {valgiarastis.savaites_diena}, Valgiarasčio tipas {valgiarastis.tipas}, Data {valgiarastis.data}")
     print("Įveskite naują reikšmę arba palikite seną nieko neįvedant.")
     changes = {
@@ -124,6 +125,7 @@ def collect_changes(valgiarastis):
         "tipas": input("Valgiarasčio tipas: "),
         "data": input("Data: "),
     }
+    return changes
 
 def add_valgymas():
     i_suvalgymo_busena = input("Įveskite suvalgymų info nuo 0 iki 10, kai 0 nevalgė visai: ")
@@ -161,6 +163,7 @@ def collect_changes_valgymas(valgymas):
         "vaikas_id": input("Vaikas_id: "),
         "valgiarastis_id": input("Valgiaraštis_id: "),
     }
+    return changes
 
 def add_produktas(valgiarastis=None):
     i_pavadinimas = input("Įveskite produktą: ")
@@ -204,7 +207,7 @@ while True:
             preview_valgiarastis()
         elif choice2 == "3":
             valgiarastis = get_valgiarastis_by_id()
-            update_valgiarastis(valgiarastis, **collect_changes(valgiarastis))   
+            update_valgiarastis(valgiarastis, **collect_changes_valgiarastis(valgiarastis))   
 
     elif choice == "3":
         choice3 = valgymu_meniu()
